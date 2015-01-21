@@ -41,7 +41,7 @@ class MockEETestListener implements \PHPUnit_Framework_TestListener
 
     public function endTestSuite(\PHPUnit_Framework_TestSuite $suite) {}
 
-    public function startTest(\PHPUnit_Framework_Test $test) 
+    public function startTest(\PHPUnit_Framework_Test $test)
     {
         // create a fresh mocked EE instance
         static::setMockEEInstance($this->createMockEEInstance());
@@ -53,7 +53,11 @@ class MockEETestListener implements \PHPUnit_Framework_TestListener
         static::setMockEEInstance(null);
     }
 
-    public function createMockEEInstance()
+    public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+    }
+
+    public static function createMockEEInstance()
     {
         // mock global EE instance
         $ee = Mockery::mock('ee_instance');
@@ -75,7 +79,7 @@ class MockEETestListener implements \PHPUnit_Framework_TestListener
         $ee->output = Mockery::mock('ee_output');
         $ee->security = Mockery::mock('ee_security');
         $ee->session = Mockery::mock('ee_session');
-        $ee->TMPL = Mockery::mock('ee_tmpl');
+        $ee->TMPL = Mockery::mock('ee_tmpl', array('fetch_param'=> null,'parse_variables'=>null));
 
         return $ee;
     }
