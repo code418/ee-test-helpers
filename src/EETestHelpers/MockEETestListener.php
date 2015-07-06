@@ -67,12 +67,12 @@ class MockEETestListener implements \PHPUnit_Framework_TestListener
         $ee->config = Mockery::mock('ee_config');
         $ee->cp = Mockery::mock('ee_cp');
         $ee->db = Mockery::mock('ee_db');
-        $ee->email = Mockery::mock('ee_email');
+        $ee->email = Mockery::mock('ee_email', array('from'=>null,'to'=>null,'subject'=>'null','message'=>null,'Send'=>null));
         $ee->extensions = Mockery::mock('ee_extensions', array('active_hook' => false));
         $ee->extensions->last_call = false;
         $ee->functions = Mockery::mock('ee_functions');
-        $ee->input = Mockery::mock('ee_input');
-        $ee->lang = Mockery::mock('ee_lang', array('loadfile' => null));
+        $ee->input = Mockery::mock('ee_input', array('post'=>null, 'get'=>null));
+        $ee->lang = Mockery::mock('ee_lang', array('loadfile' => null, 'line'=>null));
         $ee->lang->language = array();
         $ee->load = Mockery::mock('ee_load', array('helper' => null, 'library' => null, 'model' => null));
         $ee->localize = Mockery::mock('ee_localize');
